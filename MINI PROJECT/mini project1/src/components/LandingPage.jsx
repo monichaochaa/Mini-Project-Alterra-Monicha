@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 function LandingPage() {
   const slides = [
@@ -32,9 +33,9 @@ function LandingPage() {
         {/* Tombol ChatBot dan Login */}
         <div className="mt-6 flex gap-4">
           {/* Tombol ChatBot */}
-          <button className="bg-green-500 hover:bg-green-700 text-white py-2 px-4 rounded mb-4">
+          <Link to="/chatbot-ai" className="bg-green-500 hover:bg-green-700 text-white py-2 px-4 rounded mb-4">
             ChatBot
-          </button>
+          </Link>
           {/* Tombol Login */}
           <a href="/login" className="bg-green-500 hover:bg-green-700 text-white py-2 px-4 rounded mb-4">
             Login

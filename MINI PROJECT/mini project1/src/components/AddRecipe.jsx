@@ -22,26 +22,55 @@ const AddRecipe = ({ onAddRecipe }) => {
   };
 
   return (
-    <div style={{ padding: '20px', backgroundColor: '#b3e5fc' }}>
-      <h2>Add Resep Baru</h2>
-      <form onSubmit={handleSubmit}>
+    <div className="bg-green-100 p-8 rounded-lg shadow-lg max-w-lg mx-auto">
+      <h2 className="text-2xl font-bold text-center text-green-700 mb-6">Tambah Resep Baru</h2>
+      <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label>Nama Resep:</label>
-          <input type="text" name="namaResep" value={recipe.namaResep} onChange={handleChange} />
+          <label className="block text-lg font-medium text-green-700">Nama Resep:</label>
+          <input
+            type="text"
+            name="namaResep"
+            value={recipe.namaResep}
+            onChange={handleChange}
+            className="w-full p-3 border border-green-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+          />
         </div>
         <div>
-          <label>Alat & Bahan:</label>
-          <input type="text" name="alatBahan" value={recipe.alatBahan} onChange={handleChange} />
+          <label className="block text-lg font-medium text-green-700">Alat & Bahan:</label>
+          <input
+            type="text"
+            name="alatBahan"
+            value={recipe.alatBahan}
+            onChange={handleChange}
+            className="w-full p-3 border border-green-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+          />
         </div>
         <div>
-          <label>Langkah-langkah Masak:</label>
-          <input type="text" name="langkahMasak" value={recipe.langkahMasak} onChange={handleChange} />
+          <label className="block text-lg font-medium text-green-700">Langkah-langkah Masak:</label>
+          <input
+            type="text"
+            name="langkahMasak"
+            value={recipe.langkahMasak}
+            onChange={handleChange}
+            className="w-full p-3 border border-green-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+          />
         </div>
         <div>
-          <label>Gambar (URL):</label>
-          <input type="text" name="gambar" value={recipe.gambar} onChange={handleChange} />
+          <label className="block text-lg font-medium text-green-700">Gambar (URL):</label>
+          <input
+            type="text"
+            name="gambar"
+            value={recipe.gambar}
+            onChange={handleChange}
+            className="w-full p-3 border border-green-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+          />
         </div>
-        <button type="submit">Tambah</button>
+        <button
+          type="submit"
+          className="w-full py-3 mt-4 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500"
+        >
+          Tambah Resep
+        </button>
       </form>
     </div>
   );
