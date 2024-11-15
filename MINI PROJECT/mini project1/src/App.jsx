@@ -7,6 +7,7 @@ import FavRecipe from './components/FavRecipe';
 import AddRecipe from './components/AddRecipe';
 import Login from './components/Login';
 import Register from './components/Register';
+import ChatBotAI from './components/ChatBotAI';
 
 
 const App = () => {
