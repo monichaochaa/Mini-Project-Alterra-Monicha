@@ -1,28 +1,35 @@
-import React from 'react';
+import React from "react";
 
 const FavRecipe = ({ recipes }) => {
-  const favoriteRecipes = recipes.filter((recipe) => recipe.isFavorite);
+  if (!recipes || recipes.length === 0) {
+    return <div>No favorite recipes yet.</div>;
+  }
 
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Favorite Recipes</h1>
-      {favoriteRecipes.length > 0 ? (
-        <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
-          {favoriteRecipes.map((recipe) => (
-            <div key={recipe.id} className="border rounded-lg shadow-lg p-4 bg-white">
-              <img
-                src={recipe.image}
-                alt={recipe.name}
-                className="w-full h-40 object-cover rounded-lg mb-4"
-              />
-              <h2 className="text-lg font-semibold">{recipe.name}</h2>
-              <p className="text-gray-600 mb-2">{recipe.description}</p>
-            </div>
-          ))}
+    <div className="grid grid-cols-3 gap-4">
+      {recipes.map((recipe) => (
+        <div key={recipe.id} className="border p-4 shadow">
+          <img src={recipe.image} alt={recipe.name} className="w-full h-48 object-cover" />
+          <h3>{recipe.name}</h3>
+          <p>{recipe.description}</p>
+          <div>
+            <h4 className="font-semibold">Ingredients:</h4>
+            <ul className="list-disc ml-4">
+              {recipe.ingredients.map((ingredient, index) => (
+                <li key={index}>{ingredient}</li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <h4 className="font-semibold">Steps:</h4>
+            <ol className="list-decimal ml-4">
+              {recipe.steps.map((step, index) => (
+                <li key={index}>{step}</li>
+              ))}
+            </ol>
+          </div>
         </div>
-      ) : (
-        <p className="text-gray-600">Belum ada resep favorit. Tambahkan dari daftar resep!</p>
-      )}
+      ))}
     </div>
   );
 };

@@ -1,60 +1,41 @@
-import { useParams, useNavigate } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import React from "react";
+import { useParams } from "react-router-dom";
 
-const DetailRecipe = ({ recipes, onSave, onDelete }) => {
+const DetailRecipe = ({ recipes, toggleFavorite }) => {
   const { id } = useParams();
-  const navigate = useNavigate();
-  const recipe = recipes.find((r) => r.id === parseInt(id));
+  const recipe = recipes.find((r) => r.id === id);
 
-  const [editableRecipe, setEditableRecipe] = useState(recipe || {});
+  if (!recipe) {
+    return <div>Recipe not found.</div>;
+  }
 
-  useEffect(() => {
-    if (!recipe) {
-      navigate('/list-recipe'); // Navigasi jika resep tidak ditemukan
-    }
-  }, [recipe, navigate]);
-
-  const handleChange = (e) => {
-    setEditableRecipe({ ...editableRecipe, [e.target.name]: e.target.value });
-  };
-
-  const handleSave = () => {
-    onSave(editableRecipe);
-    navigate('/list-recipe');
-  };
-
-  const handleDelete = () => {
-    onDelete(recipe.id);
-    navigate('/list-recipe');
-  };
-
-  return recipe ? (
-    <div>
-      <h2>Detail Resep: {recipe.name}</h2>
-      <label>Nama Resep:</label>
-      <input
-        type="text"
-        name="name"
-        value={editableRecipe.name || ''}
-        onChange={handleChange}
-        className="border p-1 mb-2"
-      />
-      <label>Deskripsi:</label>
-      <textarea
-        name="description"
-        value={editableRecipe.description || ''}
-        onChange={handleChange}
-        className="border p-1 mb-2"
-      />
-      <button onClick={handleSave} className="bg-blue-500 text-white px-4 py-2">
-        Simpan
+  return (
+    <div className="p-4">
+      <h1 className="text-2xl font-bold mb-4">{recipe.name}</h1>
+      <img src={recipe.image} alt={recipe.name} className="w-96 h-64 object-cover mb-4" />
+      <button
+        onClick={() => toggleFavorite(recipe.id)} // Panggil toggleFavorite dari halaman detail
+        className="text-2xl mb-4"
+      >
+        {recipe.isFavorite ? "★" : "☆"} {/* Ubah ikon sesuai status favorit */}
       </button>
-      <button onClick={handleDelete} className="bg-red-500 text-white px-4 py-2 ml-2">
-        Hapus
-      </button>
+      <div>
+        <h2 className="text-xl font-semibold">Alat dan Bahan:</h2>
+        <ul className="list-disc ml-6">
+          {recipe.ingredients.map((ingredient, index) => (
+            <li key={index}>{ingredient}</li>
+          ))}
+        </ul>
+      </div>
+      <div className="mt-4">
+        <h2 className="text-xl font-semibold">Langkah-Langkah:</h2>
+        <ol className="list-decimal ml-6">
+          {recipe.steps.map((step, index) => (
+            <li key={index}>{step}</li>
+          ))}
+        </ol>
+      </div>
     </div>
-  ) : (
-    <p>Resep tidak ditemukan.</p>
   );
 };
 
