@@ -1,15 +1,22 @@
 import React from "react";
 
 const FavRecipe = ({ recipes }) => {
-  if (!recipes || recipes.length === 0) {
+  // Filter resep yang disukai berdasarkan `isFavorite`
+  const favoriteRecipes = recipes.filter((recipe) => recipe.isFavorite);
+
+  if (favoriteRecipes.length === 0) {
     return <div>No favorite recipes yet.</div>;
   }
 
   return (
     <div className="grid grid-cols-3 gap-4">
-      {recipes.map((recipe) => (
+      {favoriteRecipes.map((recipe) => (
         <div key={recipe.id} className="border p-4 shadow">
-          <img src={recipe.image} alt={recipe.name} className="w-full h-48 object-cover" />
+          <img
+            src={recipe.image}
+            alt={recipe.name}
+            className="w-full h-48 object-cover"
+          />
           <h3>{recipe.name}</h3>
           <p>{recipe.description}</p>
           <div>

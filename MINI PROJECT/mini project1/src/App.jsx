@@ -46,7 +46,7 @@ const App = () => {
   }, [favoriteRecipes]);
 
   const handleAddRecipe = (newRecipe) => {
-    setRecipes([...recipes, newRecipe]);
+    setRecipes((prevRecipes) => [...prevRecipes, newRecipe]);
   };
 
   const toggleFavorite = (id) => {

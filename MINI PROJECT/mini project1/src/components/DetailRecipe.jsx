@@ -1,7 +1,7 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 
-const DetailRecipe = ({ recipes, toggleFavorite }) => {
+const DetailRecipe = ({ recipes, toggleFavorite, isFavPage, onDeleteRecipe }) => {
   const { id } = useParams();
   const recipe = recipes.find((r) => r.id === id);
 
@@ -12,7 +12,11 @@ const DetailRecipe = ({ recipes, toggleFavorite }) => {
   return (
     <div className="p-4">
       <h1 className="text-2xl font-bold mb-4">{recipe.name}</h1>
-      <img src={recipe.image} alt={recipe.name} className="w-96 h-64 object-cover mb-4" />
+      <img
+        src={recipe.image}
+        alt={recipe.name}
+        className="w-96 h-64 object-cover mb-4"
+      />
       <button
         onClick={() => toggleFavorite(recipe.id)} // Panggil toggleFavorite dari halaman detail
         className="text-2xl mb-4"
@@ -35,6 +39,24 @@ const DetailRecipe = ({ recipes, toggleFavorite }) => {
           ))}
         </ol>
       </div>
+
+      {/* Hanya tampilkan tombol Edit dan Delete di ListRecipe */}
+      {!isFavPage && (
+        <div className="mt-4">
+          <Link
+            to={`/edit-recipe/${recipe.id}`} // Arahkan ke halaman Edit
+            className="text-yellow-500 hover:underline"
+          >
+            Edit Resep
+          </Link>
+          <button
+            onClick={() => onDeleteRecipe(recipe.id)} // Panggil delete
+            className="ml-4 text-red-500 hover:underline"
+          >
+            Hapus Resep
+          </button>
+        </div>
+      )}
     </div>
   );
 };
