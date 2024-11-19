@@ -6,6 +6,11 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
+  const onLogin = () => {
+    // Set login status in localStorage
+    localStorage.setItem('isLoggedIn', 'true');
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -15,6 +20,7 @@ const Login = () => {
     // Validasi login
     if (user && user.email === email && user.password === password) {
       alert("Login berhasil!");
+      onLogin();
       navigate('/');
     } else {
       alert("Email atau password salah!");

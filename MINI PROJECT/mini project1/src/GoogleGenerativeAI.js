@@ -1,6 +1,6 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
-const genAI = new GoogleGenerativeAI("AIzaSyB4mmwpAYDiCVf0L_tCZuOVwfn4AHUL2Jw");
+const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GEN_AI_KEY);
 
 const generateContent = async (prompt) => {
   try {

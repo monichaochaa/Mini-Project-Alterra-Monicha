@@ -12,9 +12,15 @@ import ChatBotAI from "./components/ChatBotAI";
 import axios from "axios";
 
 const App = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [recipes, setRecipes] = useState([]);
   const [favoriteRecipes, setFavoriteRecipes] = useState([]);
   const [userData, setUserData] = useState(null);
+
+
+  const handleLogin = () => {
+    setIsLoggedIn(true);
+  }
 
   const handleUpdateRecipe = (updatedRecipe) => {
     setRecipes((prevRecipes) =>
@@ -97,13 +103,13 @@ const App = () => {
       <div className="container mx-auto mt-4">
         <Routes>
           <Route path="/" element={<LandingPage />} />
-          <Route path="/list-recipe" element={<ListRecipe recipes={recipes} toggleFavorite={toggleFavorite} onDeleteRecipe={handleDeleteRecipe} />} />
+          <Route path="/list-recipe" element={<ListRecipe isLoggedIn={isLoggedIn} recipes={recipes} toggleFavorite={toggleFavorite} onDeleteRecipe={handleDeleteRecipe} />} />
           <Route path="/fav-recipe" element={<FavRecipe recipes={favoriteRecipes} />} />
           <Route path="/add-recipe" element={<AddRecipe onAddRecipe={handleAddRecipe} />} />
           <Route path="/detail-recipe/:id" element={<DetailRecipe recipes={recipes} onUpdateRecipe={handleUpdateRecipe} />} />
           <Route path="/register" element={<Register setUserData={setUserData} />} />
-          <Route path="/login" element={<Login userData={userData} />} />
           <Route path="/chatbot-ai" element={<ChatBotAI />} />
+          <Route path="/login" element={<Login onLogin={handleLogin} />} />
         </Routes>
       </div>
     </Router>

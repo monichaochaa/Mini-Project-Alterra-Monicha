@@ -35,8 +35,11 @@ const DetailRecipe = ({ recipes, toggleFavorite, isFavPage, onDeleteRecipe, onUp
       `https://6718b2887fc4c5ff8f4a9fa3.mockapi.io/products/${recipe.id}`,
       updatedRecipe
     );
-    
+
     onUpdateRecipe(response.data);
+
+    alert('Recipe berhasil diupdate!');
+    
     setIsEditing(false);
   } catch (error) {
     console.error('Gagal memperbarui resep:', error);

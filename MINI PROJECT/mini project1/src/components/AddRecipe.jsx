@@ -47,6 +47,8 @@ const AddRecipe = ({ onAddRecipe }) => {
       } else {
         console.error('onAddRecipe is not a function or is undefined');
       }
+
+      alert('Recipe berhasil ditambahkan!');  
       
     } catch (error) {
       console.error('Gagal menambahkan resep ke MockAPI:', error);
