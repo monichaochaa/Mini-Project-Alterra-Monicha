@@ -1,8 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 import axios from "axios";
 
 const FavRecipe = ({ recipes, setRecipes }) => {
-  // Filter resep yang disukai berdasarkan `isFavorite`
+
+  useEffect(() => {
+    const fetchRecipes = async () => {
+      try {
+        const response = await axios.get("https://6718b2887fc4c5ff8f4a9fa3.mockapi.io/products");
+        setRecipes(response.data); // Set data ke state recipes
+      } catch (error) {
+        console.error("Error fetching recipes:", error);
+      }
+    };
+    fetchRecipes();
+  }, [setRecipes]);
+
+   // Filter resep yang disukai berdasarkan `isFavorite
   const favoriteRecipes = recipes.filter((recipe) => recipe.isFavorite);
 
   const toggleFavorite = async (recipe) => {
@@ -21,10 +34,12 @@ const FavRecipe = ({ recipes, setRecipes }) => {
     }
   };
 
+  // Jika tidak ada resep favorit
   if (favoriteRecipes.length === 0) {
     return <div>No favorite recipes yet.</div>;
   }
 
+  // Render daftar resep favorit
   return (
     <div className="grid grid-cols-3 gap-4">
       {favoriteRecipes.map((recipe) => (
