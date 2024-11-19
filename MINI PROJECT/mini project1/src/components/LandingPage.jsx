@@ -32,10 +32,7 @@ function LandingPage() {
         </p>
         {/* Tombol ChatBot dan Login */}
         <div className="mt-6 flex gap-4">
-          {/* Tombol ChatBot */}
-          <Link to="/chatbot-ai" className="bg-green-500 hover:bg-green-700 text-white py-2 px-4 rounded mb-4">
-            ChatBot
-          </Link>
+    
           {/* Tombol Login */}
           <a href="/login" className="bg-green-500 hover:bg-green-700 text-white py-2 px-4 rounded mb-4">
             Login

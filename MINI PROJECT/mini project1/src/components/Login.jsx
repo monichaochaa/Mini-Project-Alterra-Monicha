@@ -21,7 +21,7 @@ const Login = () => {
     if (user && user.email === email && user.password === password) {
       alert("Login berhasil!");
       onLogin();
-      navigate('/');
+      navigate('/list-recipe');
     } else {
       alert("Email atau password salah!");
     }
