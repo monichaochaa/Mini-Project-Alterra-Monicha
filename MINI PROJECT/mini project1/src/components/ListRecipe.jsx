@@ -1,20 +1,36 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import AddRecipe from "./AddRecipe";
+import axios from "axios";
 
-const ListRecipe = ({ recipes, toggleFavorite, onAddRecipe, onDeleteRecipe }) => {
+const ListRecipe = ({ recipes, toggleFavorite, onAddRecipe, onDeleteRecipe, unsavedRecipes, onDeleteUnsavedRecipe  }) => {
   const [showAddForm, setShowAddForm] = useState(false);
+  const [notification, setNotification] = useState('');
+
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(`https://6718b2887fc4c5ff8f4a9fa3.mockapi.io/products/${id}`);
+      onDeleteRecipe(id);
+      setNotification('Resep berhasil dihapus!');
+      setTimeout(() => setNotification(''), 3000);
+    } catch (error) {
+      console.error('Gagal menghapus resep:', error);
+    }
+  };
 
   return (
     <div>
-      <button
-        onClick={() => setShowAddForm(!showAddForm)}
-        className="mb-4 p-2 bg-blue-500 text-white rounded"
-      >
-        {showAddForm ? 'Tutup Form Tambah Resep' : 'Tambah Resep'}
+      <button onClick={() => setShowAddForm(! showAddForm)} className="mb-4 p-2 bg-blue-500 text-white rounded">
+        {showAddForm ? "Tutup Form Tambah Resep" : "Tambah Resep"}
       </button>
 
       {showAddForm && <AddRecipe onAddRecipe={onAddRecipe} />}
+
+      {notification && (
+        <div className="bg-green-500 text-white p-4 rounded-md mb-4">
+          {notification}
+        </div>
+      )}
 
       <div className="grid grid-cols-3 gap-4">
         {recipes.map((recipe) => (
@@ -29,24 +45,22 @@ const ListRecipe = ({ recipes, toggleFavorite, onAddRecipe, onDeleteRecipe }) =>
             <Link to={`/detail-recipe/${recipe.id}`} className="text-blue-500">
               Detail Resep
             </Link>
-            <div className="flex items-center mt-2">
-              <button
-                onClick={() => toggleFavorite(recipe.id)}
-                className="text-xl mr-2"
-              >
-                {recipe.isFavorite ? "★" : "☆"} {/* Ikon favorit */}
-              </button>
-              <button
-                onClick={() => onDeleteRecipe(recipe.id)}
-                className="text-red-500 hover:underline"
-              >
-                Delete
-              </button>
+            <button
+              onClick={() => toggleFavorite(recipe.id)}
+              className="text-xl"
+            >
+              {recipe.isFavorite ? "★" : "☆"}
+            </button>
+            <button
+              onClick={() => handleDelete(recipe.id)}
+              className="text-red-500 hover:underline"
+            >
+              Delete
+            </button>
             </div>
-          </div>
-        ))}
-      </div>
-    </div>
+    ))}
+  </div>
+</div>
   );
 };
 

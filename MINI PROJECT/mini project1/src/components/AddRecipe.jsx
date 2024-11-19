@@ -15,6 +15,16 @@ const AddRecipe = ({ onAddRecipe }) => {
       return;
     }
 
+    const isValidImageUrl = (url) => {
+      const pattern = /^(https?:\/\/.*\.(?:png|jpg|jpeg|gif|bmp|webp))$/i;
+      return pattern.test(url);
+    };
+
+    if (!isValidImageUrl(image)) {
+      alert('URL gambar tidak valid. Harap masukkan URL gambar yang valid.');
+      return;
+    }
+
     const newRecipe = {
       name,
       description,
