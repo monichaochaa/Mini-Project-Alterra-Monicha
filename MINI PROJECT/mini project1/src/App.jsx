@@ -17,7 +17,6 @@ const App = () => {
   const [favoriteRecipes, setFavoriteRecipes] = useState([]);
   const [userData, setUserData] = useState(null);
 
-
   const handleLogin = () => {
     setIsLoggedIn(true);
   }
@@ -26,6 +25,20 @@ const App = () => {
     setRecipes((prevRecipes) =>
       prevRecipes.map((recipe) => (recipe.id === updatedRecipe.id ? updatedRecipe : recipe))
     );
+  };
+
+  useEffect(() => {
+    const savedUserData = JSON.parse(localStorage.getItem("userData"));
+    if (savedUserData) {
+      setUserData(savedUserData);
+      setIsLoggedIn(true);
+    }
+  }, []);
+  
+  const handleRegister = (data) => {
+    setUserData(data);
+    localStorage.setItem("userData", JSON.stringify(data));
+    setIsLoggedIn(true);
   };
 
   // Ambil data dari API dan Local Storage
